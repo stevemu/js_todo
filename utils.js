@@ -14,7 +14,7 @@ export let fillTodosUl = (ulId, todosArr, clickHandler) => {
         li.className = "list-group-item";
         li.dataset.id = id;
         let textSpan = document.createElement("span");
-        textSpan.className = "todo-text"
+        textSpan.className = "todo-text";
         textSpan.textContent = text;
         li.appendChild(textSpan);
         let deleteButton = document.createElement("button");

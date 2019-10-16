@@ -2,9 +2,9 @@ function Todo() {
     // read todos from localStorage or init to to be []
     let todos = [];
 
-    // if (localStorage.getItem("todos")) {
-    //     todos = JSON.parse(localStorage.getItem("todos"));
-    // }
+    if (localStorage.getItem("todos")) {
+        todos = JSON.parse(localStorage.getItem("todos"));
+    }
 
     function saveToLocalStorage() {
         localStorage.setItem("todos", JSON.stringify(todos));
@@ -40,11 +40,10 @@ function Todo() {
         todos = todos.filter((item) => {
             return item.id !== id;
         })
-        localStorage.setItem("todos", JSON.stringify(todos));
         saveToLocalStorage();
     }
 
-    async function toggleTodo(id) {
+    function toggleTodo(id) {
         let todo = todos.find((item) => {
             return item.id === id;
         })

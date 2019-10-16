@@ -10,8 +10,7 @@ renderUncompletedTodo();
 
 // controllers
 
-async function todoUlClickHandler(e) {
-
+function todoUlClickHandler(e) {
     switch (e.target.className) {
         case "delete": {
             let id = e.target.parentNode.dataset.id;
@@ -21,7 +20,7 @@ async function todoUlClickHandler(e) {
         }
         case "list-group-item": { // toggle
             let id = e.target.dataset.id;
-            await todo.toggleTodo(id);
+            todo.toggleTodo(id);
             rerenderBaseOnTabSelected();
             break;
         }
