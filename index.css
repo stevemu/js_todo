@@ -1,0 +1,40 @@
+#container {
+    display: grid;
+    grid-template-areas: 
+        "header header"
+        "input-area input-area"
+        "tabs list"
+    ;
+    grid-template-columns: 200px 1fr;
+    grid-template-rows: auto;
+}
+
+#header {
+    grid-area: header;
+    padding: 10px;
+}
+
+#input-area {
+    grid-area: input-area;
+    padding: 10px;
+}
+
+#tabs {
+    grid-area: tabs;
+    padding: 10px;
+}
+
+#list-group {
+    grid-area: list;
+    padding: 10px;
+}
+
+#list-group {
+    padding: 10px;
+}
+
+.list-group-item {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}

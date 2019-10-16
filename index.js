@@ -1,4 +1,4 @@
-import { changeTextInNode, fillTodosUl } from './utils.js';
+import { fillTodosUl } from './utils.js';
 import Todo from './Todo.js';
 
 let todo = Todo();
@@ -30,11 +30,20 @@ function todoUlClickHandler(e) {
 }
 
 function renderTodo() {
-    fillTodosUl("new", todo.getNewTodos(), todoUlClickHandler);
-    fillTodosUl("completed", todo.getCompletedTodos(), todoUlClickHandler);
+    fillTodosUl("list-group", todo.getNewTodos(), todoUlClickHandler);
 }
 
 // event listeners
+
+document.getElementById("uncompleted").addEventListener('click', (e) => {
+    fillTodosUl("list-group", todo.getNewTodos(), todoUlClickHandler);
+
+})
+
+document.getElementById("completed").addEventListener('click', (e) => {
+    fillTodosUl("list-group", todo.getCompletedTodos(), todoUlClickHandler);
+
+})
 
 function addTodoHandler(e) {
     // get the new todo text

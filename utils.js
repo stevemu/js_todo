@@ -11,6 +11,7 @@ export let fillTodosUl = (ulId, todosArr, clickHandler) => {
     for (let item of todosArr) {
         let {id, text} = item;
         let li = document.createElement("li");
+        li.className = "list-group-item";
         li.dataset.id = id;
         let textSpan = document.createElement("span");
         textSpan.className = "todo-text"
