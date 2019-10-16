@@ -2,26 +2,27 @@ import { fillTodosUl } from './utils.js';
 import Todo from './Todo.js';
 
 let todo = Todo();
+let tabSelected = 0; // 0: uncompleted; 1: completed
 
 // show the todos for the first time
 
-renderTodo();
+renderUncompletedTodo();
 
 // controllers
 
-function todoUlClickHandler(e) {
+async function todoUlClickHandler(e) {
+
     switch (e.target.className) {
         case "delete": {
             let id = e.target.parentNode.dataset.id;
             todo.deleteTodo(id);
-            renderTodo();
+            rerenderBaseOnTabSelected();
             break;
         }
-
-        case "todo-text": {
-            let id = e.target.parentNode.dataset.id;
-            todo.toggleTodo(id);
-            renderTodo();
+        case "list-group-item": { // toggle
+            let id = e.target.dataset.id;
+            await todo.toggleTodo(id);
+            rerenderBaseOnTabSelected();
             break;
         }
 
@@ -29,21 +30,42 @@ function todoUlClickHandler(e) {
 
 }
 
-function renderTodo() {
+function renderUncompletedTodo() {
+    tabSelected = 0;
     fillTodosUl("list-group", todo.getNewTodos(), todoUlClickHandler);
+    resetButtonStyles();
+    document.getElementById("uncompleted").classList.add("btn-success");
+}
+
+function renderCompletedTodo() {
+    tabSelected = 1;
+    fillTodosUl("list-group", todo.getCompletedTodos(), todoUlClickHandler);
+    resetButtonStyles();
+    document.getElementById("completed").classList.add("btn-success");
+}
+
+function rerenderBaseOnTabSelected() {
+    if (tabSelected === 0) {
+        renderUncompletedTodo();
+    } else if (tabSelected === 1) {
+        renderCompletedTodo();
+    }
 }
 
 // event listeners
 
 document.getElementById("uncompleted").addEventListener('click', (e) => {
-    fillTodosUl("list-group", todo.getNewTodos(), todoUlClickHandler);
-
+    renderUncompletedTodo();
 })
 
 document.getElementById("completed").addEventListener('click', (e) => {
-    fillTodosUl("list-group", todo.getCompletedTodos(), todoUlClickHandler);
-
+    renderCompletedTodo();
 })
+
+function resetButtonStyles () {
+    document.getElementById("completed").classList.remove("btn-success");
+    document.getElementById("uncompleted").classList.remove("btn-success");
+}
 
 function addTodoHandler(e) {
     // get the new todo text
@@ -51,7 +73,7 @@ function addTodoHandler(e) {
     todo.addTodo(todoText);
     // clear the input
     document.getElementById("new-todo").value = "";
-    renderTodo();
+    rerenderBaseOnTabSelected();
 }
 
 document.getElementById("add-todo").addEventListener('click', addTodoHandler);
